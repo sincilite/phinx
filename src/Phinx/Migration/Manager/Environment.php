@@ -147,7 +147,7 @@ class Environment
         $seed->setAdapter($this->getAdapter());
 
         // begin the transaction if the adapter supports it
-        if ($this->getAdapter()->hasTransactions()) {
+        if ($this->getAdapter()->hasTransactions() && $seed->isTransactional() !== false) {
             $this->getAdapter()->beginTransaction();
         }
 
@@ -157,7 +157,7 @@ class Environment
         }
 
         // commit the transaction if the adapter supports it
-        if ($this->getAdapter()->hasTransactions()) {
+        if ($this->getAdapter()->hasTransactions() && $seed->isTransactional() !== false) {
             $this->getAdapter()->commitTransaction();
         }
     }

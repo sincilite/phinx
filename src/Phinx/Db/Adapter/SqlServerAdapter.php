@@ -101,6 +101,7 @@ class SqlServerAdapter extends PdoAdapter implements AdapterInterface
      *
      * The "sqlsrv" driver is not available on Unix machines.
      *
+     * @param Bool $dbExits
      * @throws \InvalidArgumentException
      */
     protected function connectDblib()
@@ -115,9 +116,13 @@ class SqlServerAdapter extends PdoAdapter implements AdapterInterface
 
         // if port is specified use it, otherwise use the SqlServer default
         if (empty($options['port'])) {
-            $dsn = 'dblib:host=' . $options['host'] . ';dbname=' . $options['name'];
+            $dsn = 'dblib:host=' . $options['host'];
         } else {
-            $dsn = 'dblib:host=' . $options['host'] . ':' . $options['port'] . ';dbname=' . $options['name'];
+            $dsn = 'dblib:host=' . $options['host'] . ':' . $options['port'];
+        }
+
+        if (!isset($options['dbExists']) || $options['dbExists'] !== false) {
+            $dsn .= ';dbname=' . $options['name'];
         }
 
         $driverOptions = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];

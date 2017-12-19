@@ -215,4 +215,14 @@ abstract class AbstractSeed implements SeedInterface
     {
         return new Table($tableName, $options, $this->getAdapter());
     }
+
+    /**
+     * Get the transactional property
+     *
+     * @return bool
+     */
+    public function isTransactional()
+    {
+        return $this->transactional;
+    }
 }
