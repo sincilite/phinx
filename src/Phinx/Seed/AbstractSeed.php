@@ -61,6 +61,11 @@ abstract class AbstractSeed implements SeedInterface
     protected $output;
 
     /**
+     * @var bool
+     */
+    protected $transactional = true;
+
+    /**
      * Class Constructor.
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input
