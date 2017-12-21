@@ -62,10 +62,15 @@ class SqlServerAdapter extends PdoAdapter implements AdapterInterface
 
             // if port is specified use it, otherwise use the SqlServer default
             if (empty($options['port'])) {
-                $dsn = 'sqlsrv:server=' . $options['host'] . ';database=' . $options['name'];
+                $dsn = 'sqlsrv:server=' . $options['host'];
             } else {
-                $dsn = 'sqlsrv:server=' . $options['host'] . ',' . $options['port'] . ';database=' . $options['name'];
+                $dsn = 'sqlsrv:server=' . $options['host'] . ',' . $options['port'];
             }
+
+            if (!isset($options['dbExists']) || $options['dbExists'] !== false) {
+                $dsn .= ';database=' . $options['name'];
+            }
+
             $dsn .= ';MultipleActiveResultSets=false';
 
             $driverOptions = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
